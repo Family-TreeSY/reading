@@ -4,9 +4,10 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 from .models import Category, Story
+from reading.custom_site import custom_site
 
 
-@admin.register(Category)
+@admin.register(Category, site=custom_site)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
         'name',
@@ -16,7 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(Story)
+@admin.register(Story, site=custom_site)
 class StoryAdmin(admin.ModelAdmin):
     list_display = (
         'name',
