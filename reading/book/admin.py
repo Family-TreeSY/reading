@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from django.urls import reverse
+from django.utils.html import format_html
 
 from .models import Category, Story
 from reading.custom_site import custom_site
@@ -14,7 +16,15 @@ class CategoryAdmin(admin.ModelAdmin):
         'status',
         'user',
         'created_time',
+        'operator',
     )
+
+    def operator(self, obj):
+        return format_html(
+            '<a href="{}">编辑</a>',
+            reverse('cus_admin:book_category_change', args=(obj.id,))
+        )
+    operator.short_description = '操作'
 
 
 @admin.register(Story, site=custom_site)
@@ -24,7 +34,8 @@ class StoryAdmin(admin.ModelAdmin):
         'category',
         'author',
         'user',
-        'created_time'
+        'created_time',
+        'operator',
     )
     list_filter = (
         'author',
@@ -42,3 +53,10 @@ class StoryAdmin(admin.ModelAdmin):
         'desc',
         'content',
     )
+
+    def operator(self, obj):
+        return format_html(
+            '<a href="{}">编辑</a>',
+            reverse('cus_admin:book_story_change', args=(obj.id,))
+        )
+    operator.short_description = '操作'
