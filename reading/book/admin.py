@@ -8,10 +8,11 @@ from django.utils.html import format_html
 from .models import Category, Story
 from reading.custom_site import custom_site
 from .adminforms import StoryAdminForm
+from reading.custom_admin import BaseOwnerAdmin
 
 
 @admin.register(Category, site=custom_site)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(BaseOwnerAdmin):
     list_display = (
         'name',
         'status',
@@ -29,7 +30,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Story, site=custom_site)
-class StoryAdmin(admin.ModelAdmin):
+class StoryAdmin(BaseOwnerAdmin):
     form = StoryAdminForm
     list_display = (
         'name',
