@@ -9,6 +9,19 @@ from .models import Category, Story
 
 
 def book_list(request, category_id=None):
+    """ 分类
+    1、导航分类 nav_cates= Category.objects.filter(is_nav=True)
+    2、普通分类 cates = Category.objects.filter(is_nav=False)
+    """
+    categories = Category.objects.all()
+    nav_cates = []
+    cates = []
+    for category in categories:
+        if category.is_nav:
+            nav_cates.append(category)
+        else:
+            cates.append(category)
+
     page = request.GET.get('page', 1)
     page_size = 4
     try:
@@ -28,6 +41,8 @@ def book_list(request, category_id=None):
 
     context = {
         'books': books,
+        'nav_cates': nav_cates,
+        'cates': cates,
     }
     return render(request, 'book/list.html', context=context)
 

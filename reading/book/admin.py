@@ -17,6 +17,7 @@ class CategoryAdmin(BaseOwnerAdmin):
         'name',
         'status',
         'user',
+        'is_nav',
         'created_time',
         'operator',
     )
