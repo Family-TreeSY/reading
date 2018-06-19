@@ -21,9 +21,9 @@ from book.views import book_list, book_detail
 
 
 urlpatterns = [
-    url('^$', book_list),
-    url('^category/(?P<category_id>\d+)/$', book_list),
-    url('post/(?P<post_id>\d+)/$', book_detail),
+    url('^$', book_list, name='index'),
+    url('^category/(?P<category_id>\d+)/$', book_list, name='category'),
+    url('book/(?P<pk>\d+)/$', book_detail, name='detail'),
     url(r'^admin/', admin.site.urls),
     url(r'^cus_admin/', custom_site.urls)
 
