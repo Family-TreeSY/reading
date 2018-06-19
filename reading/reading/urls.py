@@ -17,8 +17,14 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from .custom_site import custom_site
+from book.views import book_list, book_detail
+
 
 urlpatterns = [
+    url('^$', book_list),
+    url('^category/(?P<category_id>\d+)/$', book_list),
+    url('post/(?P<post_id>\d+)/$', book_detail),
     url(r'^admin/', admin.site.urls),
     url(r'^cus_admin/', custom_site.urls)
+
 ]
