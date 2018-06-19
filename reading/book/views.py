@@ -6,13 +6,14 @@ from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage
 
 from .models import Category, Story
+from config.models import SideBar
 
 
-def book_list(request, category_id=None):
+def get_common_context():
     """ 分类
-    1、导航分类 nav_cates= Category.objects.filter(is_nav=True)
-    2、普通分类 cates = Category.objects.filter(is_nav=False)
-    """
+       1、导航分类 nav_cates= Category.objects.filter(is_nav=True)
+       2、普通分类 cates = Category.objects.filter(is_nav=False)
+   """
     categories = Category.objects.all()
     nav_cates = []
     cates = []
@@ -22,6 +23,21 @@ def book_list(request, category_id=None):
         else:
             cates.append(category)
 
+    sidebar = SideBar.objects.all()
+    hot_reading = Story.objects.filter(status=1)[:5]
+    recently_book = Story.objects.filter(status=1)[:5]
+
+    context = {
+        'nav_cates': nav_cates,
+        'cates': cates,
+        'sidebars': sidebar,
+        'hot_readings': hot_reading,
+        'recently_books': recently_book,
+    }
+    return context
+
+
+def book_list(request, category_id=None):
     page = request.GET.get('page', 1)
     page_size = 4
     try:
@@ -41,9 +57,10 @@ def book_list(request, category_id=None):
 
     context = {
         'books': books,
-        'nav_cates': nav_cates,
-        'cates': cates,
     }
+    common_comtext = get_common_context()
+    # 把common_context添加到context中
+    context.update(common_comtext)
     return render(request, 'book/list.html', context=context)
 
 
@@ -53,6 +70,8 @@ def book_detail(request, pk=None):
     except queryset.DoesNotExist:
         return Http404('Book is not exist!')
     context = {
-        'book': queryset,
+        'story': queryset,
     }
+    common_context = get_common_context()
+    context.update(common_context)
     return render(request, 'book/detail.html', context=context)

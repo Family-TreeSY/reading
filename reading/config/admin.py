@@ -4,12 +4,14 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 from .models import SideBar
+from .adminform import SideBarAdminForm
 from reading.custom_site import custom_site
 from reading.custom_admin import BaseOwnerAdmin
 
 
 @admin.register(SideBar, site=custom_site)
 class SideBarAdmin(BaseOwnerAdmin):
+    form = SideBarAdminForm
     list_display = (
         'name',
         'status',
@@ -28,4 +30,5 @@ class SideBarAdmin(BaseOwnerAdmin):
         'name',
         ('status', 'display_type'),
         'user',
+        'content',
     )

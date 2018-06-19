@@ -52,6 +52,7 @@ class StoryAdmin(BaseOwnerAdmin):
     date_hierarchy = 'created_time'
     fields = (
         'name',
+        'status',
         ('image', 'category'),
         ('author', 'user'),
         'desc',

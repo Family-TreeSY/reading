@@ -24,8 +24,13 @@ class Category(models.Model):
 
 
 class Story(models.Model):
+    STATUS_ITEMS = (
+        (1, '上线'),
+        (2, '删除'),
+    )
     name = models.CharField(max_length=50, verbose_name='名称')
     desc = models.CharField(max_length=200, verbose_name='简述')
+    status = models.PositiveIntegerField(default=1, choices=STATUS_ITEMS, verbose_name='状态')
     content = models.TextField(verbose_name='详情页')
     image = models.ImageField(max_length=100, blank=True, verbose_name='图片')
     category = models.ForeignKey(Category, verbose_name='分类')

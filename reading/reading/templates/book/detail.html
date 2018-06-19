@@ -1,11 +1,20 @@
+{% extends './base.html' %}
 <!DOCTYPE html>
+{% block content %}
 <html>
 <head>
     <meta charset="utf-8">
 </head>
-<a href="/">首页</a>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">首页</a></li>
+    <li class="breadcrumb-item"><a href="">{{ story.category.name }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">正文</li>
+  </ol>
+</nav>
 <ul>
-    {{ book.name }}<br/>
-    {{ book.content }}
+    {{ story.name }}<br/>
+    {{ story.content }}
 </ul>
 </html>
+{% endblock %}

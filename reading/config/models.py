@@ -16,6 +16,7 @@ class SideBar(models.Model):
         (3, '最热阅读'),
     )
     name = models.CharField(max_length=200, verbose_name='名称')
+    content = models.CharField(max_length=500, blank=True, verbose_name='内容')
     status = models.PositiveIntegerField(
         default=1, choices=STATUS_ITEMS, verbose_name='状态'
     )
@@ -30,3 +31,5 @@ class SideBar(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    ordering = ['-id']
