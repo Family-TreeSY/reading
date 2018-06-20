@@ -1,23 +1,35 @@
-{% extends './base.html' %}
+{% extends "./base.html" %}
 
 {% block content %}
 <ul>
-    {% if books %}
+<div class="post-element">
+  <div>
+      {% if books %}
         {% for book in books %}
-        title> <a href="{% url 'detail' book.pk %}">{{ book.name }}</a><br/>
-        desc> {{ book.desc }}
-        <hr/>
+          <h3 class="post-element-title">
+              <a href="{% url 'detail' book.id %}">{{ book.name }}</a>
+          </h3>
+          <div>
+              <nav class="nav">
+                  分类:<a class="nav-link post-element-nav" href="{% url 'category' book.category_id %}">{{ book.category }}</a>
+                  作者:<a class="nav-link post-element-nav" href="#">{{ book.author }}</a>
+                  发布:<a class="nav-link post-element-nav" href="#">{{ book.created_time }}</a>
+              </nav>
+          </div>
+          <div>
+              <p>{{ book.desc }}</p>
+          </div>
         {% endfor %}
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
-        {% endif %}
-        Page {{ page_obj.number }} of {{ paginator.num_pages }}.
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">下一页</a>
-        {% endif %}
-    {% else %}
+          {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+            {% endif %}
+            Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+            {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">下一页</a>
+            {% endif %}
+      {% else %}
         Empty!
-    {% endif %}
+      {% endif %}
+  </div>
+</div>
 </ul>
 {% endblock %}
 

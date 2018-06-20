@@ -28,8 +28,7 @@ class SideBar(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = '侧边栏'
+        ordering = ['-id']
 
     def __unicode__(self):
         return self.name
-
-    ordering = ['-id']
