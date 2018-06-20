@@ -14,6 +14,7 @@
     </li>
 </ul>
 {% block content %}
+
 {% endblock %}
 <ul>
     <li>
@@ -31,13 +32,13 @@
             {{ sidebar.content }}
         {% elif sidebar.display_type == 2 %}
         <ul>
-            {% for book in books %}
+            {% for book in recently_books %}
             <li><a href="{% url 'detail' book.id %}">{{ book.name }}</a></li>
             {% endfor %}
         </ul>
         {% elif sidebar.display_type == 3%}
         <ul>
-            {% for book in books %}
+            {% for book in hot_readings %}
             <li><a href="{% url 'detail' book.id %}">{{ book.name }}</a></li>
         {% endfor %}
         </ul>

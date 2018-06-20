@@ -17,14 +17,13 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from .custom_site import custom_site
-from book.views import book_list, book_detail
+from book.views import IndexView, CategoryView, BookView
 
 
 urlpatterns = [
-    url('^$', book_list, name='index'),
-    url('^category/(?P<category_id>\d+)/$', book_list, name='category'),
-    url('book/(?P<pk>\d+)/$', book_detail, name='detail'),
+    url('^$', IndexView.as_view(), name='index'),
+    url('^category/(?P<category_id>\d+).html$', CategoryView.as_view(), name='category'),
+    url('book/(?P<pk>\d+).html$', BookView.as_view(), name='detail'),
     url(r'^admin/', admin.site.urls),
     url(r'^cus_admin/', custom_site.urls)
-
 ]

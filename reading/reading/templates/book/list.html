@@ -8,12 +8,12 @@
         desc> {{ book.desc }}
         <hr/>
         {% endfor %}
-        {% if books.has_previous %}
-            <a href="?page={{ books.number|add:'-1'}}">上一页</a>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
         {% endif %}
-        Page {{ books.number }} of {{ books.paginator.num_pages }}.
-        {% if books.has_next %}
-            <a href="?page={{ books.number|add:'1'}}">下一页</a>
+        Page {{ page_obj.number }} of {{ paginator.num_pages }}.
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">下一页</a>
         {% endif %}
     {% else %}
         Empty!
