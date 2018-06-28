@@ -13,11 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
+from rest_framework import routers
+from rest_framework.documentation import include_docs_urls
+
+from book.api import StoryViewSet
 from .custom_site import custom_site
 from book.views import IndexView, CategoryView, BookView
+
+
+router = routers.DefaultRouter()
+router.register(r'story', StoryViewSet)
 
 
 urlpatterns = [
@@ -25,5 +33,7 @@ urlpatterns = [
     url('^category/(?P<category_id>\d+).html$', CategoryView.as_view(), name='category'),
     url('book/(?P<pk>\d+).html$', BookView.as_view(), name='detail'),
     url(r'^admin/', admin.site.urls),
-    url(r'^cus_admin/', custom_site.urls)
+    url(r'^cus_admin/', custom_site.urls),
+    url(r'api/', include(router.urls)),
+    url(r'^api/docs/', include_docs_urls(title='My Book API')),
 ]

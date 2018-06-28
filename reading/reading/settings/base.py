@@ -20,15 +20,17 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'book',
+    'reading',
+    'config',
+    'rest_framework',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'book',
-    'reading',
-    'config',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +124,9 @@ STATIC_ROOT = '/tmp/static'
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, THEME, 'static')
 ]
+
+# framework分页
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 6,
+}
