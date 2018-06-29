@@ -13,6 +13,11 @@ class StorySerializer(serializers.ModelSerializer):
         read_only=True,
     )
 
+    user = serializers.SlugRelatedField(
+        slug_field='username',
+        read_only=True,
+    )
+
     created_time = serializers.DateTimeField(
         format='%Y-%m-%d %H:%M:%S'
     )
@@ -30,10 +35,10 @@ class StoryViewSet(viewsets.ModelViewSet):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(
-        slug_field='username',
-        read_only=True,
-    )
+    # user = serializers.SlugRelatedField(
+    #     slug_field='username',
+    #     read_only=True,
+    # )
 
     class Meta:
         model = User
