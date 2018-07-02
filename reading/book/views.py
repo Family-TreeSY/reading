@@ -49,7 +49,16 @@ class BaseBookView(CommonMixin, ListView):
 
 
 class IndexView(BaseBookView):
-    pass
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        qs = super(IndexView, self).get_queryset()
+        if query:
+            qs = qs.filter(name__icontains=query)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        query = self.request.GET.get('query')
+        return super(IndexView, self).get_context_data(query=query)
 
 
 class CategoryView(BaseBookView):

@@ -23,13 +23,23 @@
 <header class="fixed-top">
   <div class="container">
       <div class="row">
-        <nav class="nav">
-            <a class="log" href="/">Reading</a>
-            <a class="index" href="/">首页</a>
-            {% for cate in nav_cates %}
-            <a class="link" href="{% url 'category' cate.id %}">{{ cate.name }}</a>
-            {% endfor %}
-        </nav>
+          <div class="col-8">
+            <nav class="nav">
+                <a class="log" href="/">Reading</a>
+                <a class="index" href="/">首页</a>
+                {% for cate in nav_cates %}
+                <a class="link" href="{% url 'category' cate.id %}">{{ cate.name }}</a>
+                {% endfor %}
+            </nav>
+          </div>
+          <div class="col-4">
+              <nav class="navbar">
+                  <form class="form-inline">
+                    <input class="form-control mr-sm-2" name="query" type="search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  </form>
+              </nav>
+          </div>
       </div>
   </div>
 </header>

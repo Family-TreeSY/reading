@@ -1,6 +1,11 @@
 {% extends "./base.html" %}
 
 {% block content %}
+{% if query %}
+    您搜索的 {{ query }} 结果如下:
+{% endif %}
+<hr/>
+
 <ul>
 <div class="post-element">
   <div>
