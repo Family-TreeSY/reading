@@ -36,6 +36,7 @@ class StoryAdmin(BaseOwnerAdmin):
     list_display = (
         'name',
         'category',
+        'is_markdown',
         'author',
         'user',
         'created_time',
@@ -56,7 +57,7 @@ class StoryAdmin(BaseOwnerAdmin):
         ('image', 'category'),
         ('author', 'user'),
         'desc',
-        'content',
+        ('content', 'is_markdown'),
     )
 
     def operator(self, obj):

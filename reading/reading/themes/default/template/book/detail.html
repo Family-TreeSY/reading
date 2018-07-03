@@ -1,4 +1,9 @@
 {% extends './base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/github.css' %}">
+{% endblock %}
 
 {% block content %}
 <html>
@@ -14,7 +19,7 @@
 </nav>
 <ul>
     <h4>{{ story.name }}</h4><br/>
-    {{ story.content }}
+    {{ story.html|safe }}
 </ul>
 </html>
 {% endblock %}
