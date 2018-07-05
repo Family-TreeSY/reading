@@ -7,9 +7,13 @@
 
 {% block content %}
 <html>
-<head>
-    <meta charset="utf-8">
-</head>
+<body>
+<style>
+    .story-element-content {
+        padding-top: 30px;
+    }
+</style>
+
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">首页</a></li>
@@ -17,9 +21,22 @@
     <li class="breadcrumb-item active" aria-current="page">正文</li>
   </ol>
 </nav>
-<ul>
-    <h4>{{ story.name }}</h4><br/>
+
+<h4>{{ story.name }}</h4><br/>
+<div>
+  <nav class="nav">
+      分类:<a class="nav-link post-element-nav" href="{% url 'category' story.category_id %}">{{ story.category }}</a>
+      作者:<a class="nav-link post-element-nav" href="#">{{ story.author }}</a>
+      发布:<a class="nav-link post-element-nav" href="#">{{ story.created_time }}</a>
+      阅读量:<a class="nav-link post-element-nav" href="#">{{ story.pv }}/{{ story.uv }}</a>
+  </nav>
+</div>
+
+<div class="story-element-content">
     {{ story.html|safe }}
-</ul>
-</html>
+</div>
+
 {% endblock %}
+
+</body>
+</html>

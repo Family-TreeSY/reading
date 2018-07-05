@@ -39,6 +39,8 @@ class StoryAdmin(BaseOwnerAdmin):
         'is_markdown',
         'author',
         'user',
+        'pv',
+        'uv',
         'created_time',
         'operator',
     )

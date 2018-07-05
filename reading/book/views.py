@@ -74,6 +74,17 @@ class BookView(CommonMixin, DetailView):
     template_name = 'book/detail.html'
     context_object_name = 'story'
 
+    def get(self, request, *args, **kwargs):
+        # 覆写get方法是因为每当文章被访问一次，pvuv就+1
+        # get方法会返回一个HttpResponse实例
+        response = super(BookView, self).get(request, *args, **kwargs)
+        self.pv_uv()
+        return response
+
+    def pv_uv(self):
+        self.object.increase_pv()
+        self.object.increase_uv()
+
 
 # def get_common_context():
 #     """ 分类
