@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from __future__ import unicode_literals
 
+from django.core.cache import cache
 from django.views.generic import ListView, DetailView
 
 from .models import Category, Story
@@ -82,8 +83,21 @@ class BookView(CommonMixin, DetailView):
         return response
 
     def pv_uv(self):
-        self.object.increase_pv()
-        self.object.increase_uv()
+        sessionid = self.request.COOKIES.get('sessionid')
+        if not sessionid:
+            return
+
+        # set(key, value, timeout) get(key)
+        # key必须是str
+        pv_key = 'pv:%s:%s' % (sessionid, self.request.path)
+        if not cache.get(pv_key):
+            self.object.increase_pv()
+            cache.set(pv_key, 1, 30)
+
+        uv_key = 'uv:%s:%s' % (sessionid, self.request.path)
+        if not cache.get(uv_key):
+            self.object.increase_uv()
+            cache.set(uv_key, 1, 60*60*24)
 
 
 # def get_common_context():
