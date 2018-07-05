@@ -28,7 +28,7 @@ class CommonMixin(object):
 
     def get_context_data(self, **kwargs):
         sidebar = SideBar.objects.all()
-        hot_reading = Story.objects.filter(status=1)[:5]
+        hot_reading = Story.objects.filter(status=1).order_by('-pv')[:5]
         recently_book = Story.objects.filter(status=1)[:5]
         kwargs.update({
             'sidebars': sidebar,
