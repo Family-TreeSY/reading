@@ -13,8 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf.urls import url, include
+from django.views.decorators.cache import cache_page
 
 from rest_framework import routers
 from rest_framework.documentation import include_docs_urls
@@ -30,7 +31,8 @@ router.register(r'story', StoryViewSet)
 
 urlpatterns = [
     url('^$', IndexView.as_view(), name='index'),
-    url('^category/(?P<category_id>\d+).html$', CategoryView.as_view(), name='category'),
+    url('^category/(?P<category_id>\d+).html$',
+        cache_page(60*10)(CategoryView.as_view()), name='category'),
     url('book/(?P<pk>\d+).html$', BookView.as_view(), name='detail'),
     url(r'^admin/', admin.site.urls),
     url(r'^cus_admin/', custom_site.urls),
